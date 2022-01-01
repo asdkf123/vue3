@@ -1,43 +1,36 @@
 <template>
   <div class="menu">
-    <a>Home</a>
-    <a>Products</a>
-    <a>About</a>
+    <a v-for="MenuName in NameList" :key="MenuName">{{MenuName}}</a>
   </div>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <div>
-    {{logo}}
-    <h4>{{ products[0] }}</h4>
-    <p>{{ price1 }} 만원</p>
+
+  <div v-for="(a1,a2) in products" :key="a1">
+    <h4>{{ products[a2] }}</h4>
+    <p>{{ price[a2] }} 만원</p>
+    <button @click="ReportCount[a2]++">허위매물신고</button><span>신고수 : {{ReportCount[a2] }}</span>
   </div >
-  <div>
-    <h4>{{ products[1] }}</h4>
-    <p>{{ price2 }} 만원</p>
-  </div >
-  <div>
-    <h4>{{ products[2] }}</h4>
-    <p>{{ price2 }} 만원</p>
-  </div >
+
+
 </template>
 
 <script>
 
+
 export default {
   name: 'App',
   data(){
-    //데이터 보관함
-    //{{}} 쓰는 이유는
-    //1. 가변적 data의 처리를 위해
-    //2. 실시간 자동 렌더링을 위해
-    //3. 웹앱 개발을 위해
     //속성 바인딩은 :로 바인딩 함
     return {
-      price1: 60,
-      price2: 70,
+      ReportCount: [0,0,0],
+      price: [60,70,80],
       products: ['역삼동원룸','천호동원룸','마포구원룸'],
+      NameList: ['home', 'shap', 'about']
     }
   },
-
+  methods: {
+    increase(){
+      this.ReportCount += 1;
+    },
+  },
   components: {
   }
 }
@@ -52,4 +45,15 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.menu {
+  background: darkslateblue;
+  padding: 15px;
+  border-radius: 5px;
+}
+.menu a{
+  color: white;
+  padding: 10px;
+}
+
 </style>
